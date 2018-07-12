@@ -1,0 +1,31 @@
+
+@import "./config.scss";
+@function pix2Rem($px) {
+	@return $px / 100 * 1rem;
+}
+* {
+    padding: 0;
+    margin: 0;
+}
+html {
+    height: 100%;
+    width: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    height: 100%;
+	font-family: PingFangSC-Regular, Microsoft YaHei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+    position: relative;
+    background-color: #fff;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+ul, li {
+    list-style-type: none;
+}
+#app {
+    height: 100%;
+}
+#layout {
+    height: 100%;
+}

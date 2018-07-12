@@ -1,0 +1,64 @@
+{
+    "name": "zhiqiu",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build": "./node_modules/.bin/webpack --config webpack.config.js --env.NODE_ENV=production",
+        "dev": "./node_modules/.bin/webpack --config webpack.config.js --env.NODE_ENV=development",
+        "qa": "./node_modules/.bin/webpack --config webpack.config.js --env.NODE_ENV=qa",
+        "start": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --env.NODE_ENV=local"
+    },
+    "proxy": {
+        "/mansion": {
+            "target": "http://localhost:8009"
+        }
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "axios": "^0.18.0",
+        "babel-cli": "^6.26.0",
+        "babel-core": "^6.26.0",
+        "babel-loader": "^7.1.4",
+        "babel-plugin-transform-decorators-legacy": "^1.3.4",
+        "babel-polyfill": "^6.26.0",
+        "babel-preset-env": "^1.6.1",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-react": "^6.24.1",
+        "babel-preset-stage-2": "^6.24.1",
+        "classnames": "^2.2.5",
+        "clean-webpack-plugin": "^0.1.19",
+        "copy-webpack-plugin": "^4.5.1",
+        "css-loader": "^0.28.11",
+        "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^1.1.11",
+        "html-webpack-inline-source-plugin": "0.0.10",
+        "html-webpack-plugin": "^3.2.0",
+        "islider": "^0.1.0",
+        "mobx": "^4.1.0",
+        "mobx-react": "^5.0.0",
+        "node-sass": "^4.8.3",
+        "path": "^0.12.7",
+        "react": "^16.2.0",
+        "react-dom": "^16.2.0",
+        "react-router": "^4.2.0",
+        "react-router-dom": "^4.2.2",
+        "sass-loader": "^6.0.7",
+        "style-loader": "^0.20.3",
+        "url-loader": "^1.0.1",
+        "webpack": "^3.10.0",
+        "webpack-bundle-analyzer": "^2.11.1",
+        "webpack-dev-server": "^2.11.2"
+    },
+    "dependencies": {
+        "autoprefixer": "^8.6.4",
+        "babel-plugin-lodash": "^3.3.4",
+        "gulp-bird": "^0.2.4",
+        "islider.js": "^2.2.5",
+        "lodash": "^4.17.10",
+        "postcss-loader": "^2.1.5",
+        "vconsole": "^3.2.0"
+    }
+}

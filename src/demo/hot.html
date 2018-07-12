@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>知秋云客服</title>
+    <meta id="viewport" name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1; user-scalable=no;">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link href="/app/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <style>
+        html {
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 195px;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fb;
+        }
+
+        body {
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 195px;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Microsoft Yahei;
+            font-size: 14px;
+            color: #666;
+        }
+
+        h4 {
+            box-sizing: border-box;
+            height: 14px;
+            margin: 0;
+            margin-top: 10px;
+            margin-left: 10px;
+            padding: 0;
+            padding-left: 4px;
+            border-left: solid 3px #63a2ef;
+            font-size: 14px;
+            line-height: 14px;
+            color: #444;
+        }
+
+        ul {
+            margin: 0;
+            margin-top: 15px;
+            margin-left: 9px;
+            padding: 0;
+        }
+
+        #list {
+            margin-top: 0;
+        }
+
+        li {
+            margin-top: 7px;
+            list-style-type: none;
+            cursor: pointer;
+        }
+
+        li a {
+            display: inline-block;
+            overflow: hidden;
+            max-width: 155px;
+            font-size: 13px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: #666;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            color: #66a4ec;
+        }
+
+        .dot {
+            display: inline-block;
+            margin-right: 3px;
+            vertical-align: 2px;
+            color: #666;
+        }
+
+        .indedicator {
+            float: right;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-selector: none;
+        }
+    </style>
+    <script>
+        /*
+         * A JavaScript implementation of the RSA Data Security, Inc. MD5 Message
+         * Digest Algorithm, as defined in RFC 1321.
+         * Version 2.1 Copyright (C) Paul Johnston 1999 - 2002.
+         * Other contributors: Greg Holt, Andrew Kepert, Ydnar, Lostinet
+         * Distributed under the BSD License
+         * See http://pajhome.org.uk/crypt/md5 for more info.
+         */
+
+        /*
+         * Configurable variables. You may need to tweak these to be compatible with
+         * the server-side, but the defaults work in most cases.
+         */
+        var hexcase = 0;
+
+        /* hex output format. 0 - lowercase; 1 - uppercase        */
+        var b64pad = '';
+
+        /* base-64 pad character. "=" for strict RFC compliance   */
+        var chrsz = 8;
+
+        /* bits per input character. 8 - ASCII; 16 - Unicode      */
+
+        /*
+         * These are the functions you'll usually want to call
+         * They take string arguments and return either hex or base-64 encoded strings
+         */
+        function hex_md5(s) {
+            return binl2hex(core_md5(str2binl(s), s.length * chrsz));
+        }
+
+        function b64_md5(s) {
+            return binl2b64(core_md5(str2binl(s), s.length * chrsz));
+        }
+
+        function str_md5(s) {
+            return binl2str(core_md5(str2binl(s), s.length * chrsz));
+        }
+
+        function hex_hmac_md5(key, data) {
+            return binl2hex(core_hmac_md5(key, data));
+        }
+
+        function b64_hmac_md5(key, data) {
+            return binl2b64(core_hmac_md5(key, data));
+        }
+
+        function str_hmac_md5(key, data) {
+            return binl2str(core_hmac_md5(key, data));
+        }
+
+        /*
+         * Perform a simple self-test to see if the VM is working
+         */
+        function md5_vm_test() {
+            return hex_md5('abc') == '900150983cd24fb0d6963f7d28e17f72';
+        }
+
+        /*
+         * Calculate the MD5 of an array of little-endian words, and a bit length
+         */
+        function core_md5(x, len) {
+
+            /* append padding */
+            x[len >> 5] |= 0x80 << ((len) % 32);
+            x[(((len + 64) >>> 9) << 4) + 14] = len;
+
+            var a = 1732584193;
+            var b = -271733879;
+            var c = -1732584194;
+            var d = 271733878;
+
+            for (var i = 0; i < x.length; i += 16) {
+                var olda = a;
+                var oldb = b;
+                var oldc = c;
+                var oldd = d;
+
+                a = md5_ff(a, b, c, d, x[i + 0], 7, -680876936);
+                d = md5_ff(d, a, b, c, x[i + 1], 12, -389564586);
+                c = md5_ff(c, d, a, b, x[i + 2], 17, 606105819);
+                b = md5_ff(b, c, d, a, x[i + 3], 22, -1044525330);
+                a = md5_ff(a, b, c, d, x[i + 4], 7, -176418897);
+                d = md5_ff(d, a, b, c, x[i + 5], 12, 1200080426);
+                c = md5_ff(c, d, a, b, x[i + 6], 17, -1473231341);
+                b = md5_ff(b, c, d, a, x[i + 7], 22, -45705983);
+                a = md5_ff(a, b, c, d, x[i + 8], 7, 1770035416);
+                d = md5_ff(d, a, b, c, x[i + 9], 12, -1958414417);
+                c = md5_ff(c, d, a, b, x[i + 10], 17, -42063);
+                b = md5_ff(b, c, d, a, x[i + 11], 22, -1990404162);
+                a = md5_ff(a, b, c, d, x[i + 12], 7, 1804603682);
+                d = md5_ff(d, a, b, c, x[i + 13], 12, -40341101);
+                c = md5_ff(c, d, a, b, x[i + 14], 17, -1502002290);
+                b = md5_ff(b, c, d, a, x[i + 15], 22, 1236535329);
+
+                a = md5_gg(a, b, c, d, x[i + 1], 5, -165796510);
+                d = md5_gg(d, a, b, c, x[i + 6], 9, -1069501632);
+                c = md5_gg(c, d, a, b, x[i + 11], 14, 643717713);
+                b = md5_gg(b, c, d, a, x[i + 0], 20, -373897302);
+                a = md5_gg(a, b, c, d, x[i + 5], 5, -701558691);
+                d = md5_gg(d, a, b, c, x[i + 10], 9, 38016083);
+                c = md5_gg(c, d, a, b, x[i + 15], 14, -660478335);
+                b = md5_gg(b, c, d, a, x[i + 4], 20, -405537848);
+                a = md5_gg(a, b, c, d, x[i + 9], 5, 568446438);
+                d = md5_gg(d, a, b, c, x[i + 14], 9, -1019803690);
+                c = md5_gg(c, d, a, b, x[i + 3], 14, -187363961);
+                b = md5_gg(b, c, d, a, x[i + 8], 20, 1163531501);
+                a = md5_gg(a, b, c, d, x[i + 13], 5, -1444681467);
+                d = md5_gg(d, a, b, c, x[i + 2], 9, -51403784);
+                c = md5_gg(c, d, a, b, x[i + 7], 14, 1735328473);
+                b = md5_gg(b, c, d, a, x[i + 12], 20, -1926607734);
+
+                a = md5_hh(a, b, c, d, x[i + 5], 4, -378558);
+                d = md5_hh(d, a, b, c, x[i + 8], 11, -2022574463);
+                c = md5_hh(c, d, a, b, x[i + 11], 16, 1839030562);
+                b = md5_hh(b, c, d, a, x[i + 14], 23, -35309556);
+                a = md5_hh(a, b, c, d, x[i + 1], 4, -1530992060);
+                d = md5_hh(d, a, b, c, x[i + 4], 11, 1272893353);
+                c = md5_hh(c, d, a, b, x[i + 7], 16, -155497632);
+                b = md5_hh(b, c, d, a, x[i + 10], 23, -1094730640);
+                a = md5_hh(a, b, c, d, x[i + 13], 4, 681279174);
+                d = md5_hh(d, a, b, c, x[i + 0], 11, -358537222);
+                c = md5_hh(c, d, a, b, x[i + 3], 16, -722521979);
+                b = md5_hh(b, c, d, a, x[i + 6], 23, 76029189);
+                a = md5_hh(a, b, c, d, x[i + 9], 4, -640364487);
+                d = md5_hh(d, a, b, c, x[i + 12], 11, -421815835);
+                c = md5_hh(c, d, a, b, x[i + 15], 16, 530742520);
+                b = md5_hh(b, c, d, a, x[i + 2], 23, -995338651);
+
+                a = md5_ii(a, b, c, d, x[i + 0], 6, -198630844);
+                d = md5_ii(d, a, b, c, x[i + 7], 10, 1126891415);
+                c = md5_ii(c, d, a, b, x[i + 14], 15, -1416354905);
+                b = md5_ii(b, c, d, a, x[i + 5], 21, -57434055);
+                a = md5_ii(a, b, c, d, x[i + 12], 6, 1700485571);
+                d = md5_ii(d, a, b, c, x[i + 3], 10, -1894986606);
+                c = md5_ii(c, d, a, b, x[i + 10], 15, -1051523);
+                b = md5_ii(b, c, d, a, x[i + 1], 21, -2054922799);
+                a = md5_ii(a, b, c, d, x[i + 8], 6, 1873313359);
+                d = md5_ii(d, a, b, c, x[i + 15], 10, -30611744);
+                c = md5_ii(c, d, a, b, x[i + 6], 15, -1560198380);
+                b = md5_ii(b, c, d, a, x[i + 13], 21, 1309151649);
+                a = md5_ii(a, b, c, d, x[i + 4], 6, -145523070);
+                d = md5_ii(d, a, b, c, x[i + 11], 10, -1120210379);
+                c = md5_ii(c, d, a, b, x[i + 2], 15, 718787259);
+                b = md5_ii(b, c, d, a, x[i + 9], 21, -343485551);
+
+                a = safe_add(a, olda);
+                b = safe_add(b, oldb);
+                c = safe_add(c, oldc);
+                d = safe_add(d, oldd);
+            }
+            return Array(a, b, c, d);
+        }
+
+        /*
+         * These functions implement the four basic operations the algorithm uses.
+         */
+        function md5_cmn(q, a, b, x, s, t) {
+            return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
+        }
+
+        function md5_ff(a, b, c, d, x, s, t) {
+            return md5_cmn((b & c) | ((~b) & d), a, b, x, s, t);
+        }
+
+        function md5_gg(a, b, c, d, x, s, t) {
+            return md5_cmn((b & d) | (c & (~d)), a, b, x, s, t);
+        }
+
+        function md5_hh(a, b, c, d, x, s, t) {
+            return md5_cmn(b ^ c ^ d, a, b, x, s, t);
+        }
+
+        function md5_ii(a, b, c, d, x, s, t) {
+            return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);
+        }
+
+        /*
+         * Calculate the HMAC-MD5, of a key and some data
+         */
+        function core_hmac_md5(key, data) {
+            var bkey = str2binl(key);
+            if (bkey.length > 16) {
+                bkey = core_md5(bkey, key.length * chrsz);
+            }
+
+            var ipad = Array(16);
+            var opad = Array(16);
+            for (var i = 0; i < 16; i++) {
+                ipad[i] = bkey[i] ^ 0x36363636;
+                opad[i] = bkey[i] ^ 0x5C5C5C5C;
+            }
+
+            var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
+            return core_md5(opad.concat(hash), 512 + 128);
+        }
+
+        /*
+         * Add integers, wrapping at 2^32. This uses 16-bit operations internally
+         * to work around bugs in some JS interpreters.
+         */
+        function safe_add(x, y) {
+            var lsw = (x & 0xFFFF) + (y & 0xFFFF);
+            var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+            return (msw << 16) | (lsw & 0xFFFF);
+        }
+
+        /*
+         * Bitwise rotate a 32-bit number to the left.
+         */
+        function bit_rol(num, cnt) {
+            return (num << cnt) | (num >>> (32 - cnt));
+        }
+
+        /*
+         * Convert a string to an array of little-endian words
+         * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
+         */
+        function str2binl(str) {
+            var bin = Array();
+            var mask = (1 << chrsz) - 1;
+            for (var i = 0; i < str.length * chrsz; i += chrsz) {
+                bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << (i % 32);
+
+            }
+            return bin;
+        }
+
+        /*
+         * Convert an array of little-endian words to a string
+         */
+        function binl2str(bin) {
+            var str = '';
+            var mask = (1 << chrsz) - 1;
+            for (var i = 0; i < bin.length * 32; i += chrsz) {
+                str += String.fromCharCode((bin[i >> 5] >>> (i % 32)) & mask);
+
+            }
+            return str;
+        }
+
+        /*
+         * Convert an array of little-endian words to a hex string.
+         */
+        function binl2hex(binarray) {
+            var hex_tab = hexcase ? '0123456789ABCDEF' : '0123456789abcdef';
+            var str = '';
+            for (var i = 0; i < binarray.length * 4; i++) {
+                str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) +
+                    hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xF);
+            }
+            return str;
+        }
+
+        /*
+         * Convert an array of little-endian words to a base-64 string
+         */
+        function binl2b64(binarray) {
+            var tab = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+            var str = '';
+            for (var i = 0; i < binarray.length * 4; i += 3) {
+                var triplet = (((binarray[i >> 2] >> 8 * (i % 4)) & 0xFF) << 16) | (((binarray[i + 1 >> 2] >> 8 * ((i + 1) % 4)) & 0xFF) << 8) | ((binarray[i + 2 >> 2] >> 8 * ((i + 2) % 4)) & 0xFF);
+                for (var j = 0; j < 4; j++) {
+                    if (i * 8 + j * 6 > binarray.length * 32) {
+                        str += b64pad;
+                    } else {
+                        str += tab.charAt((triplet >> 6 * (3 - j)) & 0x3F);
+                    }
+                }
+            }
+            return str;
+        }
+
+        function encodeHTML(text) {
+            if (!text) {
+                return '';
+            }
+            return text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\'/g, '&#39;').replace(/\"/g, '&quot;');
+        }
+    </script>
+</head>
+
+<body class="clearfix page-hot">
+<input type="hidden" id="account">
+<input type="hidden" id="uid">
+<input type="hidden" id="sourceId">
+<input type="hidden" id="u_token">
+<h4>热点问题</h4>
+<ul id="list-qiye" style="display:none;">
+    <li><span class="dot">•</span><a onclick="javascript:click_qiye(2)">如何申请企业应用</a></li>
+    <li><span class="dot">•</span><a onclick="javascript:click_qiye(1)">如何申请企业服务号</a></li>
+</ul>
+<ul id="list"></ul>
+<h4 id="title-related" style="display:none">相关问题</h4>
+<ul id="related-list" style="display:none"></ul>
+<h4 id="title-guess">猜你想问</h4>
+<ul id="guess-list"></ul>
+<!-- <div id="cookie"></div> -->
+<!-- <h2>调试信息</h2>
+    <br/> JS能获取到的cookie值：
+    <div id="cookie"></div>
+    <br/>
+    <br/>
+    <input type="button" value="刷新" id="refresh" onclick="refresh_click()" />
+    <br/>
+    <div>热点问题的数据 <span id="hotQ"></span></div> -->
+<script>
+    var count = 0;
+    var pickHttpRequest = null;
+    window.onerror = function() {
+        return true;
+    };
+    window.DM = location.href.match(/^(http|https):\/\/[^\/]+\/([^\/]+)/)[2] || '';
+    var basePath = '/' + window.DM + '/';
+
+    window.onunload = function() {
+        delCookie('HIUNAME');
+        delCookie('APPID');
+        delCookie('u_token');
+        delCookie('USERID');
+        delCookie('SOURCEID');
+        pickHttpRequest && pickHttpRequest.abort && pickHttpRequest.abort();
+    };
+
+    window.onload = function() {
+        // document.getElementById('cookie').innerHTML = document.cookie;
+        // alert('cookie::::'+document.cookie);
+    };
+    // 查询热点问题
+    var hotParams = {
+        mappedAppKey: getSearchParam('appkey'),
+        sourceId: getCookie('SOURCEID') || '',
+        uid: getCookie('USERID') || '',
+        accountId: getCookie('HIUNAME') || ''
+    };
+    if (!hotParams.sourceId) {
+        delete hotParams.sourceId;
+    }
+    if (!hotParams.uid) {
+        delete hotParams.uid;
+    }
+    if (!hotParams.accountId) {
+        delete hotParams.accountId;
+    }
+    ajax({
+        method: 'post',
+        type: 'json',
+        url: '/rdwtv2/api/hot',
+        params: JSON.stringify(hotParams),
+        contentType: 'application/json;charset=utf-8',
+        success: function(data) {
+            /*document.getElementById('hotQ').innerHTML = JSON.stringify(data);
+            document.getElementById('cookie').innerHTML = document.cookie;*/
+            // 查询当前是否为百度用户
+            //if (getSearchParam('appkey') == 'baiduzhiqiuceshi') {
+            ajax({
+                method: 'get',
+                type: 'json',
+                url: basePath + 'api/hot/qy/tips/is/show',
+                params: {
+                    mappedAppKey: getSearchParam('appkey'),
+                    rnd: Math.random()
+                },
+                success: function(data) {
+                    if (data.code == 0 && data.data.isShow) {
+                        document.getElementById('list-qiye').style.display = 'block';
+                    }
+                }
+            });
+            //}
+            document.getElementById('account').value = getCookie('HIUNAME') || '';
+            document.getElementById('uid').value = getCookie('USERID') || '';
+            document.getElementById('sourceId').value = getCookie('SOURCEID') || '';
+            var msHtml = [];
+            if (data.data.hotQuestions) {
+                for (var i = 0; i < data.data.hotQuestions.length; i++) {
+                    var curData = data.data.hotQuestions[i];
+                    msHtml.push('<li data-clickid= "' + curData.clickId + '" data-exposeid="' + data.data.exposeId + '" title="' + curData.question + '" onclick="handleClick(1,' + curData.answerId + ',this)"><span class="dot">•</span><a>' + encodeHTML(curData.question) + '</a></li>');
+                    if (i == 8) {
+                        break;
+                    }
+
+                }
+                document.getElementById('list').innerHTML = msHtml.join('');
+            }
+            registerRelate();
+        },
+        error: function() {
+            registerRelate();
+        }
+    });
+
+    hotParams.sourceType = 1; // 渠道来源hi
+    // 查询猜你想问的问题
+    ajax({
+        method: 'post',
+        type: 'json',
+        url: basePath + 'api/recommend',
+        params: JSON.stringify(hotParams),
+        contentType: 'application/json;charset=utf-8',
+        success: function(data) {
+            var msHtml = [];
+            if (data.data.hotQuestions) {
+                for (var i = 0; i < data.data.hotQuestions.length; i++) {
+                    var curData = data.data.hotQuestions[i];
+                    msHtml.push('<li data-clickid= "' + curData.clickId + '" data-recommendid="' + data.data.recommendId + '" title="' + curData.question + '" onclick="handleClick(3,' + curData.answerId + ',this)"><span class="dot">•</span><a>' + encodeHTML(curData.question) + '</a></li>');
+                    if (i == 4) {
+                        break;
+                    }
+                }
+                document.getElementById('guess-list').innerHTML = msHtml.join('');
+            }
+
+        },
+        error: function() {
+            registerRelate();
+        }
+    });
+
+    // 注册长连接
+    function registerRelate() {
+        var appId = getCookie('APPID');
+        var userId = getCookie('USERID');
+        if (!appId || !userId) {
+            return;
+        }
+        var signature = hex_md5(appId + userId + 'baiduimcspush');
+        ajax({
+            method: 'post',
+            type: 'json',
+            url: '/imcswebchat/server/push/register',
+            params: JSON.stringify({
+                appId: appId,
+                userId: userId,
+                signature: signature
+            }),
+            contentType: 'application/json;charset=utf-8',
+            success: function(data) {
+                if (data.data.result) {
+                    document.getElementById('u_token').value = data.data.u_token;
+                    openRelatedLink();
+                }
+
+            }
+        });
+    }
+
+    // 拉起长连接
+    function openRelatedLink() {
+        var u_token = document.getElementById('u_token').value;
+        pickHttpRequest = ajax({
+            method: 'post',
+            type: 'json',
+            url: '/imcswebchat/server/push/pick',
+            params: JSON.stringify({
+                u_token: u_token
+            }),
+            contentType: 'application/json;charset=utf-8',
+            success: function(data) {
+                if (data.code == 0) {
+                    renderRelate(data);
+                    count = 0;
+                    openRelatedLink();
+                } else if (data.code == 1010) {
+                    count = 0;
+                    openRelatedLink();
+                } else {
+                    if (count < 10) {
+                        count++;
+                        openRelatedLink();
+                    } else {
+                        setTimeout(function() {
+                            openRelatedLink();
+                        }, 20000);
+                    }
+                }
+            }
+        });
+    }
+
+    // 渲染相关问题
+    function renderRelate(data) {
+        // 重复登录消息，不能解析
+        if (data.data.infos[0].fromName) {
+            return;
+        }
+
+        var info = data.data.infos[0].data;
+        var question = JSON.parse(info);
+        var msHtml = [];
+        if (question.relatedQuestions) {
+            for (var i = 0; i < question.relatedQuestions.length; i++) {
+                var curData = question.relatedQuestions[i];
+                msHtml.push('<li data-clickid= "' + curData.clickId + '" data-recordid="' + question.recordId + '" title="' + curData.question + '" onclick="handleClick(2,' + curData.answerId + ',this)"><span class="dot">•</span><a>' + encodeHTML(curData.question) + '</a></li>');
+                if (i == 4) {
+                    break;
+                }
+
+            }
+            document.getElementById('related-list').innerHTML = msHtml.join('');
+            document.getElementById('guess-list').style.display = 'none';
+            document.getElementById('title-guess').style.display = 'none';
+
+            document.getElementById('title-related').style.display = 'block';
+            document.getElementById('related-list').style.display = 'block';
+        } else {
+            document.getElementById('related-list').innerHTML = '';
+        }
+    }
+
+    // 同意处理点击事件
+    function handleClick(type, id, _this) {
+        var params = {
+            mappedAppKey: getSearchParam('appkey'),
+            answerId: id + '',
+            clickId: _this.getAttribute('data-clickid'),
+            accountId: document.getElementById('account').value ? document.getElementById('account').value : '',
+            uid: document.getElementById('uid').value ? document.getElementById('uid').value : '',
+            sourceId: document.getElementById('sourceId').value ? document.getElementById('sourceId').value : ''
+        };
+        if (!params.accountId) {
+            delete params.accountId;
+        }
+        if (!params.uid) {
+            delete params.uid;
+        }
+        if (!params.sourceId) {
+            delete params.sourceId;
+        }
+        if (type == 1) {
+            params.exposeId = _this.getAttribute('data-exposeid');
+        } else if (type == 2) {
+            params.recordId = _this.getAttribute('data-recordid');
+        } else if (type == 3) {
+            params.recommendId = _this.getAttribute('data-recommendid');
+        }
+        ajax({
+            method: 'post',
+            type: 'json',
+            url: basePath + 'api/hot/click',
+            params: JSON.stringify(params),
+            contentType: 'application/json;charset=utf-8',
+            success: function(data) {}
+        });
+    }
+
+    function click_qiye(type) {
+        ajax({
+            method: 'get',
+            type: 'json',
+            url: basePath + 'api/hot/qy/tips/click',
+            params: {
+                qid: type,
+                mappedAppKey: getSearchParam('appkey'),
+                rnd: Math.random()
+            },
+            success: function(data) {}
+        });
+    }
+
+
+    /****************************************工具函数***********************************************/
+
+    function decode(str) {
+        try {
+            return decodeURIComponent(str.replace(/\+/g, ' '));
+        } catch (e) {
+            return str;
+        }
+    }
+
+    function parseCookie(str) {
+        var obj = {};
+        var pairs = str.split(/ *; */);
+        var pair;
+        if ('' == pairs[0]) {
+            return obj;
+        }
+
+        for (var i = 0; i < pairs.length; ++i) {
+            pair = pairs[i].split('=');
+            obj[decode(pair[0])] = decode(pair[1]);
+        }
+        return obj;
+    }
+
+    function getCookies() {
+        var str;
+        try {
+            str = document.cookie;
+        } catch (err) {
+            if (typeof console !== 'undefined' && typeof console.error === 'function') {
+                console.error(err.stack || err);
+            }
+
+            return {};
+        }
+        return parseCookie(str);
+    }
+
+    function getCookie(name) {
+        return getCookies()[name];
+    }
+
+    function delCookie(NameOfCookie) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        document.cookie = NameOfCookie + '=' + getCookie(NameOfCookie) + ';expires=' + exp.toGMTString() + ';path=/';
+    }
+
+    function getSearchParam(field) {
+        var search = location.search || '';
+        if (search === '') {
+            return '';
+        }
+
+        var params = search.slice(1).split('&');
+        for (var i = 0; i < params.length; i++) {
+            var param = params[i];
+            var param_name = param.split('=')[0];
+            var param_value = decodeURIComponent(param.split('=')[1]);
+            if (param_name == field) {
+                return param_value;
+            }
+
+        }
+        return '';
+    }
+
+    function ajax(userOptions) {
+        // 默认值
+        var options = {
+            method: 'get',
+            // get, post,jsonp, file
+            url: '',
+            params: {},
+            // key:value //当method为file的时候,params=formData, xmlHttpRequest 2.0 可利用formData对象来上传文件
+            type: 'text',
+            // text, json, xml
+            contentType: null,
+            success: function(data) {},
+            fail: function() {}
+        };
+        // 更新option
+        for (var pro in userOptions) {
+            if (userOptions[pro]) {
+                options[pro] = userOptions[pro];
+            }
+
+        }
+        var method = options.method;
+        var url = options.url;
+        var params = options.params;
+        var type = options.type;
+        var contentType = options.contentType;
+        var success = options.success;
+        var fail = options.fail;
+        var async = (userOptions.async === undefined ? true : userOptions.async);
+        // xhr对象
+        var createRequest = function() {
+            var xmlhttp;
+            try {
+                if (typeof XMLHttpRequest != 'undefined') {
+                    xmlhttp = new XMLHttpRequest();
+                    if (xmlhttp.overrideMimeType) {
+                        xmlhttp.overrideMimeType('text/xml');
+                    }
+                } else {
+                    xmlhttp = new ActiveXObject('Microsoft.XMLHTTP');
+                }
+            } catch (e) {
+                alert('您的浏览器不支持Ajax');
+            }
+            return xmlhttp;
+        };
+        // 格式化参数
+        var formateParameters = function(params) {
+            var paramsArray = [];
+            var params = params;
+            for (var pro in params) {
+                var paramValue = params[pro];
+                if (method.toUpperCase() === 'GET') {
+                    paramValue = encodeURIComponent(params[pro]);
+                }
+
+                paramsArray.push(pro + '=' + paramValue);
+            }
+            return paramsArray.join('&');
+        };
+        // 获取返回值
+        var readystatechange = function(xmlhttp) {
+            var returnValue;
+            if (xmlhttp.readyState == 4) {
+                if (xmlhttp.status == 200 || xmlhttp.status == 0) {
+                    switch (type) {
+                        case 'xml':
+                            returnValue = xmlhttp.responseXML;
+                            break;
+                        case 'json':
+                            var jsonText = xmlhttp.responseText;
+                            if (jsonText) {
+                                returnValue = eval('(' + jsonText + ')');
+                                if (returnValue.code && returnValue.code === 401) {
+                                    fail && fail();
+                                }
+                            }
+
+                            break;
+                        default:
+                            returnValue = xmlhttp.responseText;
+                            break;
+                    }
+                    if (returnValue) {
+                        if (success) {
+                            success(returnValue);
+                        }
+                    } else {
+                        if (fail) {
+                            fail();
+                        }
+                    }
+                } else {
+                    if (fail) {
+                        fail();
+                    }
+                }
+            }
+        };
+        // 创建XMLHttpRequest对象
+        var xmlhttp = createRequest();
+        // 设置回调函数
+        xmlhttp.onreadystatechange = function() {
+            readystatechange(xmlhttp);
+        };
+        // 格式化参数
+        var formateParams = formateParameters(params);
+        // 类型判断
+        if ('GET' === method.toUpperCase()) {
+            url += '?' + formateParams;
+            xmlhttp.open('get', url, async);
+            xmlhttp.send(null);
+        } else if ('POST' === method.toUpperCase()) {
+            xmlhttp.open('post', url, async);
+            // 如果是POST提交，设置请求头信息
+            if (!contentType) {
+                contentType = 'application/x-www-form-urlencoded';
+            }
+
+            xmlhttp.setRequestHeader('Content-Type', contentType);
+            xmlhttp.send(params);
+        } else if ('JSONP' === method.toUpperCase()) {
+            var callbackName = 'jsonp' + randomNumber(1000, 9999);
+            // 创建script来请求jsonp
+            var head = document.getElementsByTagName('head')[0] || document.documentElement;
+            var script = document.createElement('script');
+            url += '?' + formateParams;
+            script.src = url + '&callback=' + callbackName;
+            head.insertBefore(script, head.firstChild);
+            script.onerror = fail();
+            window[callbackName] = function(data) {
+                if (success) {
+                    success(data);
+                }
+
+                delete window[callbackName];
+                head.removeChild(script);
+            };
+        } else if ('FILE' === method.toUpperCase()) {
+            xmlhttp.open('post', url, async);
+            xmlhttp.send(params); // 此处params为formData对象
+        }
+        return xmlhttp;
+    }
+</script>
+</body>
+
+</html>

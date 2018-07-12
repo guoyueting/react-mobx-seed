@@ -1,0 +1,22 @@
+.nav-page {
+	.list-ul {
+		display: flex;
+		text-align: center;
+		height: 36px;
+		line-height: 36px;
+		align-items: stretch;
+	    justify-content: space-around;
+		color: #95a2af;
+		font-size: 14px;
+	    background-color: #fff;
+	    cursor: pointer;
+		.list-li {
+		    min-width: 53px;
+			list-style-type: none;
+		}
+		.active {
+			color: #000;
+			border-bottom: pix2Rem(4) solid #3492fc;
+		}
+	}
+}
