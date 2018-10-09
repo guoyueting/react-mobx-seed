@@ -19,9 +19,9 @@ var transpondRules = {
     '8009': {
         // 目标服务器的ip和端口，域名也可，但注意不要被host了
         targetServer: {
-            'port': '8680',
+            'port': '80',
             // 'port': '8080',
-            'host': 'http://m1-ite-hidev04.m1.baidu.com',
+            'host': 'http://ningmeng.dev.weiyun.baidu.com',
             // 'host': 'cp01-ps-dev373-liuchao31.epc.baidu.com',
             // 当为true时，如果cookie or header中有相同key，则替换
             'replaceHeaders': true,

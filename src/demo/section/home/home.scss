@@ -1,5 +1,16 @@
 .home-page {
-	display: flex;
-	flex-direction: column;
 	height: 100%;
+	font-family: MicrosoftYaHei;
+	.time-show {
+		margin-right: 20px;
+		font-size: 16px;
+	}
+	.datapicker {
+		padding-top: 100px;
+		padding-left: 250px;
+	}
+	.export {
+		margin-left: 80px;
+		width: 100px;
+	}
 }

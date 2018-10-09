@@ -45,6 +45,23 @@ module.exports = function(env) {
                 })
             },
             {
+                test: /(\.less)$/i,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [{
+                        loader: 'css-loader',
+                        options: {
+                            minimize: true
+                        }
+                    }, {
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true
+                        }
+                    }]
+                })
+            },
+            {
                 test: /(\.png|\.jpg|\.jpeg|\.gif)$/i,
                 use: [{
                     loader: 'url-loader',
@@ -59,7 +76,8 @@ module.exports = function(env) {
                 'src': path.resolve(__dirname, 'src'),
                 'section': path.resolve(__dirname, 'src/demo/section'),
                 'img': path.resolve(__dirname, 'src/demo/img'),
-                'modules': path.resolve(__dirname, 'node_modules/islider.js/build')
+                'modules': path.resolve(__dirname, 'node_modules/islider.js/build'),
+                'model': path.resolve(__dirname, 'src/demo/model')
             }
         },
         plugins: [
@@ -79,7 +97,7 @@ module.exports = function(env) {
             host: '0.0.0.0',
             port: 9822,
             proxy: {
-                "/rdwtv2": "http://localhost:8009"
+                "/": "http://localhost:8009"
             }
         }
     }

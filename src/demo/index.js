@@ -9,7 +9,7 @@ import Layout from 'section/layout/layout.js';
 class App extends React.Component {
     render() {
         return (
-            <Provider {...storeTree} >
+            <Provider {...storeTree}>
                 <HashRouter>
                     <Route path="/" component={Layout}/>
                 </HashRouter>
@@ -19,4 +19,3 @@ class App extends React.Component {
 }
 
 render(<App/>, document.getElementById('app'));
-            // <Provider {...storeTree}>

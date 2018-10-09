@@ -5,17 +5,18 @@
 'use strict';
 
 import {observable, action, extendObservable, runInAction} from 'mobx';
-import NavState from 'section/nav/navStore';
-import iSliderState from 'section/homeindex/component/islider/isliderStore';
-import hotPointState from 'section/homeindex/component/hotpoint/hotpointStore';
+
+import * as model from 'model/model';
 
 class AppState {
+    @observable isAllowDownload = 1;
 
+    @action checkAllowDownload(param) {
+        let me = this;
+        model.allowDownload(param);
+    }
 }
 
 export default {
-    AppState: new AppState(),
-    NavState: new NavState(),
-    iSliderState: new iSliderState(),
-    hotPointState: new hotPointState()
+    AppState: new AppState()
 }
